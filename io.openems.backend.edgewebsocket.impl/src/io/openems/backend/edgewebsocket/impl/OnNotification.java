@@ -1,6 +1,7 @@
 package io.openems.backend.edgewebsocket.impl;
 
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import org.java_websocket.WebSocket;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import io.openems.common.exceptions.OpenemsError.OpenemsNamedException;
 import io.openems.common.jsonrpc.base.JsonrpcNotification;
 import io.openems.common.jsonrpc.notification.EdgeConfigNotification;
 import io.openems.common.jsonrpc.notification.TimestampedDataNotification;
+import io.openems.common.types.SemanticVersion;
 import io.openems.common.utils.JsonUtils;
 
 public class OnNotification implements io.openems.common.websocket.OnNotification {
@@ -29,7 +31,17 @@ public class OnNotification implements io.openems.common.websocket.OnNotificatio
 	public void run(WebSocket ws, JsonrpcNotification notification) throws OpenemsNamedException {
 		// Validate authentication
 		WsData wsData = ws.getAttachment();
-		wsData.assertAuthentication(notification);
+		try {
+			wsData.assertAuthentication(notification);
+		} catch (OpenemsNamedException e) {
+			this.parent.logWarn(this.log, e.getMessage());
+		}
+
+		// announce incoming message for this Edge
+		Optional<Edge> edge = wsData.getEdge(this.parent.metadata);
+		if (edge.isPresent()) {
+			edge.get().setLastMessageTimestamp();
+		}
 
 		// Handle notification
 		switch (notification.getMethod()) {
@@ -99,7 +111,7 @@ public class OnNotification implements io.openems.common.websocket.OnNotificatio
 			}
 			if (data.has("_meta/Version") && data.get("_meta/Version").isJsonPrimitive()) {
 				String version = JsonUtils.getAsPrimitive(data, "_meta/Version").getAsString();
-				edge.setVersion(version);
+				edge.setVersion(SemanticVersion.fromString(version));
 			}
 		}
 	}
