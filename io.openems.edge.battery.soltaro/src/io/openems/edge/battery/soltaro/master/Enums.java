@@ -4,17 +4,17 @@ import io.openems.edge.common.channel.doc.OptionsEnum;
 
 public class Enums {
 
-
 	public enum StartStop implements OptionsEnum {
+		UNDEFINED(-1, "Undefined"), //
+		START(1, "Start"), //
+		STOP(2, "Stop");
 
-		START(1, "Start"), STOP(2, "Stop");
+		private final int value;
+		private final String name;
 
-		int value;
-		String option;
-
-		private StartStop(int value, String option) {
+		private StartStop(int value, String name) {
 			this.value = value;
-			this.option = option;
+			this.name = name;
 		}
 
 		@Override
@@ -23,21 +23,27 @@ public class Enums {
 		}
 
 		@Override
-		public String getOption() {
-			return option;
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public OptionsEnum getUndefined() {
+			return UNDEFINED;
 		}
 	}
-	
+
 	public enum RackUsage implements OptionsEnum {
+		UNDEFINED(-1, "Undefined"), //
+		USED(1, "Rack is used"), //
+		UNUSED(2, "Rack is not used");
 
-		USED(1, "Rack is used"), UNUSED(2, "Rack is not used");
+		private final int value;
+		private final String name;
 
-		int value;
-		String option;
-
-		private RackUsage(int value, String option) {
+		private RackUsage(int value, String name) {
 			this.value = value;
-			this.option = option;
+			this.name = name;
 		}
 
 		@Override
@@ -46,21 +52,28 @@ public class Enums {
 		}
 
 		@Override
-		public String getOption() {
-			return option;
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public OptionsEnum getUndefined() {
+			return UNDEFINED;
 		}
 	}
-	
+
 	public enum ChargeIndication implements OptionsEnum {
+		UNDEFINED(-1, "Undefined"), //
+		STANDING(0, "Standby"), //
+		DISCHARGING(1, "Discharging"), //
+		CHARGING(2, "Charging");
 
-		STANDING(0, "Standby"), DISCHARGING(1, "Discharging"), CHARGING(2, "Charging");
+		private final int value;
+		private final String name;
 
-		private int value;
-		private String option;
-
-		private ChargeIndication(int value, String option) {
+		private ChargeIndication(int value, String name) {
 			this.value = value;
-			this.option = option;
+			this.name = name;
 		}
 
 		@Override
@@ -69,25 +82,30 @@ public class Enums {
 		}
 
 		@Override
-		public String getOption() {
-			return option;
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public OptionsEnum getUndefined() {
+			return UNDEFINED;
 		}
 	}
-	
-	public enum RunningState implements OptionsEnum {
 
-		NORMAL(0, "Normal"),
-		FULLY_CHARGED(1, "Fully charged"),
-		EMPTY(2, "Empty"),
-		STANDBY(3, "Standby"),
+	public enum RunningState implements OptionsEnum {
+		UNDEFINED(-1, "Undefined"), //
+		NORMAL(0, "Normal"), //
+		FULLY_CHARGED(1, "Fully charged"), //
+		EMPTY(2, "Empty"), //
+		STANDBY(3, "Standby"), //
 		STOPPED(4, "Stopped");
 
-		int value;
-		String option;
+		private final int value;
+		private final String name;
 
-		private RunningState(int value, String option) {
+		private RunningState(int value, String name) {
 			this.value = value;
-			this.option = option;
+			this.name = name;
 		}
 
 		@Override
@@ -96,10 +114,14 @@ public class Enums {
 		}
 
 		@Override
-		public String getOption() {
-			return option;
+		public String getName() {
+			return name;
+		}
+
+		@Override
+		public OptionsEnum getUndefined() {
+			return UNDEFINED;
 		}
 	}
-	
-	
+
 }

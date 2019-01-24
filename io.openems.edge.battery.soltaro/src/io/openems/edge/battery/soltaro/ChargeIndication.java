@@ -8,8 +8,8 @@ public enum ChargeIndication implements OptionsEnum {
 	DISCHARGING(1, "Discharging"), //
 	CHARGING(2, "Charging");
 
-	private int value;
-	private String name;
+	private final int value;
+	private final String name;
 
 	private ChargeIndication(int value, String name) {
 		this.value = value;

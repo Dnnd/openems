@@ -9,7 +9,6 @@ import io.openems.edge.battery.soltaro.BatteryState;
 		name = "BMS FENECON Soltaro Master", //
 		description = "Implements the Soltaro master battery rack system.")
 @interface Config {
-	String service_pid();
 
 	String id() default "bms0";
 

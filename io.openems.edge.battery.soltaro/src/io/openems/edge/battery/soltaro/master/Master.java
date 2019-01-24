@@ -79,7 +79,7 @@ public class Master extends AbstractOpenemsModbusComponent implements Battery, O
 	void activate(ComponentContext context, Config config) {
 		log.info("Master.activate()");
 		this.config = config;
-		super.activate(context, config.service_pid(), config.id(), config.enabled(), config.modbusUnitId(), this.cm,
+		super.activate(context, config.id(), config.enabled(), config.modbusUnitId(), this.cm,
 				"Modbus", config.modbus_id());
 
 		this.modbusBridgeId = config.modbus_id();

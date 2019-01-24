@@ -92,7 +92,7 @@ public class SoltaroRackVersionB extends AbstractOpenemsModbusComponent
 	@Activate
 	void activate(ComponentContext context, Config config) {
 		this.config = config;
-		super.activate(context, config.service_pid(), config.id(), config.enabled(), config.modbusUnitId(), this.cm,
+		super.activate(context, config.id(), config.enabled(), config.modbusUnitId(), this.cm,
 				"Modbus", config.modbus_id());
 		this.modbusBridgeId = config.modbus_id();
 		initializeCallbacks();
@@ -615,18 +615,15 @@ public class SoltaroRackVersionB extends AbstractOpenemsModbusComponent
 
 	private boolean isSystemIsRunning() {
 		IntegerReadChannel contactorControlChannel = this.channel(VersionBChannelId.BMS_CONTACTOR_CONTROL);
-		Optional<Enum<?>> ccOpt = contactorControlChannel.value().asEnumOptional();
-		debug("in isSystemIsRunning();  ccOpt.isPresent(): " + ccOpt.isPresent());
-		if (ccOpt.isPresent()) {
-			debug("ccOpt: " + ccOpt.get());
-		}
-		return ccOpt.isPresent() && ccOpt.get() == ContactorControl.ON_GRID;
+		ContactorControl cc = contactorControlChannel.value().asEnum();
+		debug("in isSystemIsRunning();  ccOpt.isPresent(): " + cc);
+		return cc == ContactorControl.ON_GRID;
 	}
 
 	private boolean isSystemStopped() {
 		IntegerReadChannel contactorControlChannel = this.channel(VersionBChannelId.BMS_CONTACTOR_CONTROL);
-		Optional<Enum<?>> ccOpt = contactorControlChannel.value().asEnumOptional();
-		return ccOpt.isPresent() && ccOpt.get() == ContactorControl.CUT_OFF;
+		ContactorControl cc = contactorControlChannel.value().asEnum();
+		return cc == ContactorControl.CUT_OFF;
 	}
 
 	private boolean isAlarmLevel2Error() {
@@ -750,7 +747,7 @@ public class SoltaroRackVersionB extends AbstractOpenemsModbusComponent
 		
 		if (state == State.ERROR) {
 			for (ErrorCode c : getErrorCodes()) {
-				log.info("Error detected: " + c.getOption());
+				log.info("Error detected: " + c.getName());
 			}
 		}
 		

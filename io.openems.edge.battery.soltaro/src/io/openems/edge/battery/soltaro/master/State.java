@@ -3,33 +3,36 @@ package io.openems.edge.battery.soltaro.master;
 import io.openems.edge.common.channel.doc.OptionsEnum;
 
 public enum State implements OptionsEnum {
-	
-	UNDEFINED("Undefined", -1),
-	PENDING("Pending", 0),
-	OFF("Off", 1),
-	INIT("Initializing", 2),
-	RUNNING("Running", 3),
-	STOPPING("Stopping", 4),
-	ERROR("Error", 5),
-	ERRORDELAY("Errordelay", 6),
-	;
+	UNDEFINED(-1, "Undefined"), //
+	PENDING(0, "Pending"), //
+	OFF(1, "Off"), //
+	INIT(2, "Initializing"), //
+	RUNNING(3, "Running"), //
+	STOPPING(4, "Stopping"), //
+	ERROR(5, "Error"), //
+	ERRORDELAY(6, "Errordelay");
 
-	private State(String option, int value) {
-		this.option = option;
+	private final int value;
+	private final String name;
+
+	private State(int value, String name) {
 		this.value = value;
+		this.name = name;
 	}
-	
-	private int value;
-	private String option;
-	
+
 	@Override
 	public int getValue() {
-		return this.value;
+		return value;
 	}
 
 	@Override
-	public String getOption() {
-		return this.option;
+	public String getName() {
+		return name;
 	}
-	
+
+	@Override
+	public OptionsEnum getUndefined() {
+		return UNDEFINED;
+	}
+
 }

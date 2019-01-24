@@ -1,6 +1,6 @@
 package io.openems.edge.battery.soltaro.master;
 
-import io.openems.edge.battery.soltaro.SoltaroRack.ClusterRunState;
+import io.openems.edge.battery.soltaro.ClusterRunState;
 import io.openems.edge.common.channel.doc.Doc;
 import io.openems.edge.common.channel.doc.Level;
 import io.openems.edge.common.channel.doc.Unit;
