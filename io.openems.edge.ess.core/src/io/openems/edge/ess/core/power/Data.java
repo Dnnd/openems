@@ -401,17 +401,7 @@ public class Data {
 	private void invertersUpdateWeights(List<Inverter> inverters) {
 		for (Inverter inv : inverters) {
 			ManagedSymmetricEss ess = this.parent.getEss(inv.getEssId());
-			
-			//TODO Workaround: If only one inverter exists with SoC 0% 
-			// currently charging or discharging is not possible
-			//temporary solution: if SoC == 0% set it to 1%
-//			inv.setWeight(ess.getSoc().value().orElse(50));
-			
-			int weight = 50;
-			if ( ess.getSoc().value().asOptional().isPresent() ) {
-				weight = Math.max(1, ess.getSoc().value().asOptional().get());
-			}
-			inv.setWeight(weight);
+			inv.setWeight(ess.getSoc().value().orElse(50));
 		}
 	}
 
