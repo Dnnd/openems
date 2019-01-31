@@ -110,7 +110,7 @@ public abstract class AbstractOpenemsModbusComponent extends AbstractOpenemsComp
 		}
 	}
 
-	protected ModbusProtocol getModbusProtocol(int unitId) {
+	private ModbusProtocol getModbusProtocol(int unitId) {
 		ModbusProtocol protocol = this.protocol;
 		if (protocol != null) {
 			return protocol;

@@ -44,7 +44,6 @@ public class FC6WriteRegisterTask extends AbstractTask implements WriteTask {
 
 						this.writeSingleRegister(bridge, this.getParent().getUnitId(), this.getStartAddress(),
 								registers[0]);
-						
 					} catch (OpenemsException | ModbusException e) {
 						/*
 						 * Second try: with new connection
