@@ -77,7 +77,8 @@ public class EssSinexcel extends AbstractOpenemsModbusComponent
 	private static final int SLOW_CHARGE_VOLTAGE = 4370; // Slow and Float Charge Voltage must be the same for the Lithium Ionbattery.
 	private static final int FLOAT_CHARGE_VOLTAGE = 4370;
 	public int a = 0;
-	public int counter = 0;
+	public int counterOn = 0;
+	public int counterOff = 0;
 		
 	@Reference
 	protected ConfigurationAdmin cm;
@@ -912,15 +913,19 @@ public class EssSinexcel extends AbstractOpenemsModbusComponent
 			}
 			
 			if (activePower == 0 && reactivePower == 0 && a == 0) {
-				counter++;
-				if(counter == 29) {
+				counterOff++;
+				if(counterOff == 48) {
 					inverterOff();
-					counter = 0;
+					counterOff = 0;
 				}
 				
 			}
 			else if((activePower != 0 || reactivePower != 0) && a == 1) {
-				inverterOn();
+				counterOn++;
+				if(counterOn == 48) {
+					inverterOn();
+					counterOn = 0;
+				}
 			}
 			break;
 			
