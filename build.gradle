@@ -17,7 +17,7 @@ task updateOpenemsConstants {
     if (!version.getBuildMetadata().isEmpty()) {
         versionString += "+" + version.getBuildMetadata()
     }
-    def openemsConstantsFile = new File('io.openems.common/src/io/openems/common/OpenemsConstants.java')
+    def openemsConstantsFile = project.file('io.openems.common/src/io/openems/common/OpenemsConstants.java')
     def constants = openemsConstantsFile.getText('UTF-8')
     constants = constants.replaceAll('(short VERSION_MAJOR = ).*;', '$1' + version.getMajorVersion() + ';')
     constants = constants.replaceAll('(short VERSION_MINOR = ).*;', '$1' + version.getMinorVersion() + ';')
